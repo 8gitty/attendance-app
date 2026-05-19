@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SNPSU CSE Attendance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <header class="dashboard-header glass">
+        <div>
+            <div style="font-size: 0.65rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase;">Sapthagiri NPS University</div>
+            <h2 style="font-size: 1.2rem;">CSE <span style="color: var(--primary-color)">Attendance</span></h2>
+        </div>
+        <a href="/logout" style="text-decoration: none;">
+            <button class="btn-logout" style="background: var(--card-bg); border: 1px solid var(--border-color);">
+                <i data-lucide="log-out"></i> Logout
+            </button>
+        </a>
+    </header>
+
+    <main class="dashboard-content">
+        <div class="controls-bar glass fade-in" style="padding: 24px;">
+            <div style="flex: 1;">
+                <label style="display:block; margin-bottom: 8px; color: var(--text-muted);">Session</label>
+                <select id="sessionSelect">
+                    <option value="">Select a Session...</option>
+                </select>
+            </div>
+            
+            <div id="dateControl" style="display: none; flex: 1;">
+                <label style="display:block; margin-bottom: 8px; color: var(--text-muted);">Date</label>
+                <input type="date" id="attendanceDate">
+            </div>
+        </div>
+
+        <div id="coursesGrid" class="course-grid fade-in">
+            <!-- Courses will be loaded here -->
+        </div>
+
+        <div id="studentListContainer" class="student-list-container fade-in">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="selectedCourseTitle" style="color: var(--primary-color);">Course Name</h3>
+                <span id="totalClassesBadge" style="background: rgba(255,255,255,0.1); padding: 4px 12px; border-radius: 20px; font-size: 0.875rem;">Total Classes: 0</span>
+            </div>
+            
+            <div class="glass" style="padding: 0;">
+                <div class="student-row header">
+                    <div>Roll No</div>
+                    <div>Student Name</div>
+                    <div style="text-align: center;">Attendance %</div>
+                    <div style="text-align: center;">Action</div>
+                </div>
+                <div id="studentsWrapper">
+                    <!-- Students will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Store faculty ID from session for JS -->
+    <input type="hidden" id="facid" value="{{ facid }}">
+
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script>
+        lucide.createIcons();
+    </script>
+</body>
+</html>

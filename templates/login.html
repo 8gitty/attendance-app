@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - SNPSU CSE Attendance</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+    <div class="login-container glass fade-in">
+        <div style="margin-bottom: 24px;">
+            <div
+                style="font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">
+                Sapthagiri NPS University</div>
+            <h1>CSE Department</h1>
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Attendance Management Portal
+            </div>
+        </div>
+        <p>Sign in with your faculty credentials</p>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" required placeholder="">
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" required placeholder="">
+            </div>
+
+            <button type="submit" style="width: 100%; margin-top: 10px;">Sign In</button>
+        </form>
+
+        <div id="error-message">Invalid credentials. Please try again.</div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            const btn = e.target.querySelector('button');
+            btn.textContent = 'Authenticating...';
+
+            try {
+                const res = await fetch('/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await res.json();
+                if (data.status === 'success') {
+                    window.location.href = '/attendance';
+                } else {
+                    document.getElementById('error-message').style.display = 'block';
+                    btn.textContent = 'Sign In';
+                }
+            } catch (err) {
+                console.error(err);
+                btn.textContent = 'Sign In';
+            }
+        });
+    </script>
+</body>
+
+</html>
