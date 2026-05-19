@@ -7,37 +7,201 @@
     <title>Login - SNPSU CSE Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <style>
+        :root {
+            --porsche-black: #050505;
+            --porsche-dark-grey: #121212;
+            --porsche-accent: #d82b2b; /* Subtle premium red accent */
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --text-main: #f0f0f0;
+            --text-muted: #8a8a8a;
+        }
+
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: var(--porsche-black);
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+                radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+            margin: 0;
+            padding: 20px;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 420px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 48px 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle top highlight for the card */
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+        }
+
+        /* Logo */
+        .logo-wrapper {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .logo-wrapper img.logo {
+            height: 55px;
+            object-fit: contain;
+            filter: grayscale(20%) contrast(1.2) brightness(1.1);
+        }
+
+        .login-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .login-subtitle {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: 300;
+            letter-spacing: 0.2px;
+        }
+
+        #loginForm {
+            width: 100%;
+        }
+
+        .input-group {
+            margin-bottom: 24px;
+            position: relative;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: white;
+            font-size: 1rem;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.6);
+            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            margin-top: 16px;
+            padding: 16px;
+            background: #ffffff;
+            color: #000000;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            letter-spacing: 0.5px;
+        }
+
+        button[type="submit"]:hover {
+            background: #e0e0e0;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(255, 255, 255, 0.3);
+        }
+        
+        button[type="submit"]:active {
+            transform: translateY(0);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="login-container glass fade-in">
-        <div style="margin-bottom: 24px;">
-            <div
-                style="font-size: 0.75rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase; margin-bottom: 6px;">
-                Sapthagiri NPS University</div>
-            <h1>CSE Department</h1>
-            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">Attendance Management Portal
-            </div>
+
+    <div class="login-container fade-in">
+        <!-- University Logo -->
+        <div class="logo-wrapper">
+            <img class="logo" src="{{ url_for('static', filename='logo.webp') }}" alt="SNPSU Logo">
         </div>
-        <p>Sign in with your faculty credentials</p>
+
+        <div class="login-title">Faculty Portal</div>
+        <div class="login-subtitle">Secure Access Verification</div>
 
         <form id="loginForm">
             <div class="input-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" required placeholder="">
+                <input type="text" id="username" required autocomplete="off">
             </div>
 
             <div class="input-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" required placeholder="">
+                <input type="password" id="password" required>
             </div>
 
-            <button type="submit" style="width: 100%; margin-top: 10px;">Sign In</button>
+            <button type="submit">Authorize Access</button>
         </form>
 
-        <div id="error-message">Invalid credentials. Please try again.</div>
+        <div id="error-message"
+            style="color: var(--porsche-accent); font-size: 0.875rem; margin-top: 20px; display: none; text-align: center; font-weight: 500;">
+            Authentication failed. Please try again.
+        </div>
     </div>
 
     <script>
@@ -47,7 +211,9 @@
             const password = document.getElementById('password').value;
 
             const btn = e.target.querySelector('button');
-            btn.textContent = 'Authenticating...';
+            const originalText = btn.textContent;
+            btn.textContent = 'Verifying...';
+            btn.style.opacity = '0.8';
 
             try {
                 const res = await fetch('/login', {
@@ -58,14 +224,21 @@
 
                 const data = await res.json();
                 if (data.status === 'success') {
-                    window.location.href = '/attendance';
+                    btn.textContent = 'Success';
+                    btn.style.background = '#4CAF50';
+                    btn.style.color = 'white';
+                    setTimeout(() => {
+                        window.location.href = '/attendance';
+                    }, 400);
                 } else {
                     document.getElementById('error-message').style.display = 'block';
-                    btn.textContent = 'Sign In';
+                    btn.textContent = originalText;
+                    btn.style.opacity = '1';
                 }
             } catch (err) {
                 console.error(err);
-                btn.textContent = 'Sign In';
+                btn.textContent = originalText;
+                btn.style.opacity = '1';
             }
         });
     </script>

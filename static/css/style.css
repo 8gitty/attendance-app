@@ -1,20 +1,23 @@
 :root {
-    --primary-color: #4f46e5;
-    --primary-hover: #4338ca;
-    --bg-color: #0f172a;
-    --card-bg: rgba(30, 41, 59, 0.7);
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-    --border-color: rgba(255, 255, 255, 0.1);
+    --porsche-black: #050505;
+    --porsche-dark-grey: #121212;
+    --porsche-accent: #d82b2b;
+    --primary-color: #ffffff;
+    --primary-hover: #e0e0e0;
+    --bg-color: var(--porsche-black);
+    --card-bg: rgba(255, 255, 255, 0.02);
+    --text-main: #f0f0f0;
+    --text-muted: #8a8a8a;
+    --border-color: rgba(255, 255, 255, 0.08);
     --success: #10b981;
-    --danger: #ef4444;
+    --danger: var(--porsche-accent);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Outfit', sans-serif;
 }
 
 body {
@@ -23,18 +26,32 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: radial-gradient(circle at 15% 50%, rgba(79, 70, 229, 0.15), transparent 25%),
-                      radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.1), transparent 25%);
+    background-image: 
+        radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
     background-attachment: fixed;
 }
 
 /* Glassmorphism utility */
 .glass {
     background: var(--card-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
     border-radius: 16px;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
 }
 
 /* Animations */
@@ -44,87 +61,66 @@ body {
 }
 
 .fade-in {
-    animation: fadeIn 0.5s ease forwards;
+    animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Forms & Buttons */
 input, select {
     width: 100%;
-    padding: 12px 16px;
-    background: rgba(15, 23, 42, 0.6);
+    padding: 14px 16px;
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid var(--border-color);
     border-radius: 8px;
-    color: var(--text-main);
+    color: white;
     font-size: 1rem;
+    font-family: 'Outfit', sans-serif;
     transition: all 0.3s ease;
     outline: none;
 }
 
 input:focus, select:focus {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(0, 0, 0, 0.6);
+    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.05);
 }
 
 button {
     background: var(--primary-color);
-    color: white;
+    color: #000000;
     border: none;
-    padding: 12px 24px;
+    padding: 14px 24px;
     border-radius: 8px;
     font-weight: 600;
+    font-family: 'Outfit', sans-serif;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.5px;
 }
 
 button:hover {
     background: var(--primary-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px -10px rgba(255, 255, 255, 0.3);
 }
 
 button:active {
     transform: translateY(0);
 }
 
-/* Login Specific */
-.login-container {
-    margin: auto;
-    width: 100%;
-    max-width: 400px;
-    padding: 40px;
-    text-align: center;
+.btn-logout {
+    background: transparent !important;
+    color: var(--text-main) !important;
+    border: 1px solid var(--border-color) !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    box-shadow: none !important;
 }
 
-.login-container h1 {
-    margin-bottom: 8px;
-    font-size: 2rem;
-    background: linear-gradient(to right, #818cf8, #4f46e5);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.login-container p {
-    color: var(--text-muted);
-    margin-bottom: 32px;
-}
-
-.input-group {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 0.875rem;
-    color: var(--text-muted);
-}
-
-#error-message {
-    color: var(--danger);
-    font-size: 0.875rem;
-    margin-top: 16px;
-    display: none;
+.btn-logout:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
 }
 
 /* Dashboard Specific */
@@ -132,93 +128,137 @@ button:active {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 40px;
+    padding: 24px 48px;
     border-bottom: 1px solid var(--border-color);
+    border-radius: 0;
+    box-shadow: none;
+}
+
+.dashboard-header::before {
+    display: none;
 }
 
 .dashboard-header h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 .dashboard-content {
-    padding: 40px;
+    padding: 48px;
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+    width: 100%;
 }
 
 .controls-bar {
     display: flex;
-    gap: 20px;
+    gap: 24px;
     align-items: center;
+}
+
+.controls-bar label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .course-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
 }
 
 .course-card {
-    padding: 24px;
+    padding: 32px 24px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     text-align: center;
+    border: 1px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.01);
 }
 
 .course-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--primary-color);
-    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+    transform: translateY(-8px);
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8);
 }
 
 .course-card h3 {
     color: var(--primary-color);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
 }
 
 /* Student List */
 .student-list-container {
     display: none;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .student-row {
     display: grid;
-    grid-template-columns: 80px 2fr 1fr 100px;
+    grid-template-columns: 140px 2fr 1fr 120px;
     align-items: center;
-    padding: 16px 24px;
+    padding: 20px 32px;
     gap: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+    transition: background 0.2s ease;
+}
+
+.student-row:hover:not(.header) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.student-row:last-child {
+    border-bottom: none;
 }
 
 .student-row.header {
-    font-weight: 600;
+    font-weight: 500;
     color: var(--text-muted);
-    border: none;
-    background: transparent;
-    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+    background: rgba(0, 0, 0, 0.2);
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
 }
 
 .attendance-toggle {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.05);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid transparent;
+}
+
+.attendance-toggle:hover {
+    transform: scale(1.05);
+    background: rgba(255, 255, 255, 0.1);
 }
 
 .attendance-toggle.present {
     background: var(--success);
-    color: white;
+    color: #ffffff;
+    box-shadow: 0 8px 16px -4px rgba(16, 185, 129, 0.4);
 }
 
 .attendance-toggle.absent {
     background: var(--danger);
-    color: white;
+    color: #ffffff;
+    box-shadow: 0 8px 16px -4px rgba(216, 43, 43, 0.4);
 }

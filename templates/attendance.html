@@ -6,15 +6,18 @@
     <title>Dashboard - SNPSU CSE Attendance</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <header class="dashboard-header glass">
-        <div>
-            <div style="font-size: 0.65rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase;">Sapthagiri NPS University</div>
-            <h2 style="font-size: 1.2rem;">CSE <span style="color: var(--primary-color)">Attendance</span></h2>
+        <div style="display:flex; align-items:center; gap: 14px;">
+            <img src="{{ url_for('static', filename='logo.webp') }}" alt="SNPSU Logo" style="height: 44px; object-fit: contain; filter: grayscale(20%) contrast(1.2) brightness(1.1);">
+            <div>
+                <div style="font-size: 0.6rem; letter-spacing: 2px; color: var(--text-muted); text-transform: uppercase;">Sapthagiri NPS University</div>
+                <h2 style="font-size: 1.1rem; margin: 0;">CSE <span style="color: var(--primary-color)">Attendance</span></h2>
+            </div>
         </div>
         <a href="/logout" style="text-decoration: none;">
             <button class="btn-logout" style="background: var(--card-bg); border: 1px solid var(--border-color);">
