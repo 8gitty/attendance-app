@@ -12,7 +12,7 @@ MONGO_URI = os.getenv("MONGO_URI", "mongodb://localhost:27017/")
 DB_NAME = os.getenv("MONGO_DB_NAME", "attendance_db")
 
 # Use certifi to prevent SSL handshake errors on minimal cloud environments like Render
-client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
+client = MongoClient(MONGO_URI, tlsCAFile=certifi.where(), tlsAllowInvalidCertificates=True)
 db = client[DB_NAME]
 
 def get_db():
